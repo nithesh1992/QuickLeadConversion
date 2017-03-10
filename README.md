@@ -1,2 +1,4 @@
 # QuickLeadConversion
-Convert lead to account contact and opportunity when ever account is created need to send an email to lead owner saying that account has been created for that lead.
+Upon Clicking **Custom Convert** Button, This Code logic will
++ Converts lead to Account, Contact and Opportunity
++ Sends an email to lead Owner.
