@@ -1,0 +1,16 @@
+<apex:page standardController="Lead" extensions="ConvertExt" sidebar="false">
+    <apex:pageBlock title="Custom Lead Conversion" tabStyle="Lead" id="LeadBlock">
+        <apex:pageBlockSection title="Lead Details">
+            <apex:outputField value="{!lead.LastName}"/>
+            <apex:outputField value="{!lead.OwnerId}"/>
+            <apex:outputField value="{!lead.Company}"/>
+            <apex:outputField value="{!lead.Id}"/>
+            <apex:outputField value="{!lead.Status}" id="leadStatus"/>
+        </apex:pageBlockSection>
+        <apex:form >
+            <div align="center" draggable="false">
+               <apex:commandButton disabled="{! if(IsConverted , true, false)}" value="Start Conversion" action="{!convertLead}" /> 
+            </div>            
+        </apex:form>        
+    </apex:pageBlock>   
+</apex:page>
