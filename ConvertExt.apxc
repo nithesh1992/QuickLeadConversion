@@ -1,0 +1,57 @@
+public class ConvertExt {
+    
+    public Lead lead = new Lead();
+    public Id Lid, accId, conId, oppId;
+    public Boolean isConverted = false;
+    
+    
+    public ConvertExt(ApexPages.StandardController stdController){
+        Lid = (Id)stdController.getRecord().id;
+        lead = (Lead)stdController.getRecord();
+        System.debug(Lid);            
+    }
+    
+    public Lead getLead(){
+        
+        return lead;
+    }
+    
+    public PageReference convertLead(){	
+        
+        lead = [SELECT Id ,LastName,Company,Status, OwnerId FROM Lead WHERE Id =:Lid LIMIT 1];
+        Database.LeadConvert ldconvert = new Database.LeadConvert(); 
+        ldconvert.setLeadId(lead.id);
+        ldconvert.setOwnerId(lead.OwnerId);
+        ldconvert.ConvertedStatus = 'Closed - Converted';
+        ldconvert.setSendNotificationEmail(true);
+        
+        try{
+            
+            Database.LeadConvertResult result = Database.convertLead(ldconvert); 
+            System.Debug('Conversion Result: ' + result.isSuccess());
+            if(result.isSuccess()){
+                isConverted = true;
+            }
+            
+        }
+       
+        catch(DmlException e){
+            
+            System.debug(e.getCause()); 
+        }
+        
+        PageReference returnPage = new PageReference('/apex/afterConvert?id='+ Lid);
+        returnPage.setRedirect(true);
+        return returnPage;
+        
+    }
+    
+    public boolean getIsConverted() {
+        if(isConverted || lead.Status == 'Closed - Converted') 
+        {
+            isConverted = true;
+        }
+        return isConverted;
+    }   
+    
+}
