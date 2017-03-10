@@ -1,0 +1,11 @@
+<apex:page standardController="Lead">
+        <apex:pageBlock title="Lead Conversion Status!" id="LeadBlock">
+        <apex:pageBlockSection title="Lead Details">
+            <apex:outputField value="{!lead.ConvertedContactId}"/>
+            <apex:outputField value="{!lead.Status}"/>
+            <apex:outputField value="{!lead.ConvertedAccountId}"/>
+            <apex:outputField value="{!lead.Id}"/>
+            <apex:outputField value="{!lead.ConvertedOpportunityId}"/>            
+        </apex:pageBlockSection>    
+    </apex:pageBlock>
+</apex:page>
